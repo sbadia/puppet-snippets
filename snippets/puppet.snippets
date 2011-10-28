@@ -17,7 +17,7 @@ snippet exec
 	    cwd		  => "${3:launch-path}",
 	    user	  => root,
 	    creates	  => "${4:bin}",
-	    require	  => "[Package["${5:pkg}"],File["${6:file}"]],"
+	    require	  => "[Package["${5:pkg}"],File["${6:file}"]]",
 	    refreshonly   => "${7:true}",
 	    onlyif        => "${8:run_if_true}",
 	    unless        => "${9:run_if_false}";
