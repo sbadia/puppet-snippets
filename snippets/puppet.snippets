@@ -6,28 +6,51 @@ snippet file
 	    ensure  => ${3:file},
 	    owner   => ${4:root},
 	    group   => ${5:root},
-	    mode    => ${6:0755};
+	    mode    => ${6:0755},
+	    notify  => Package["${7:name}"],
+	    require => Package["${8:name}"];
 	}
 snippet exec
 	exec {
 	  "${1:name}":
 	    command       => "${2:command}",
-	    refreshonly   => "${3:true}",
-	    onlyif        => "${4:run_if_true}",
-	    unless        => "${5:run_if_false}",
+	    cwd		  => "${3:launch-path}",
+	    user	  => root,
+	    creates	  => "${4:bin}",
+	    require	  => "[Package["${5:pkg}"],File["${6:file}"]],"
+	    refreshonly   => "${7:true}",
+	    onlyif        => "${8:run_if_true}",
+	    unless        => "${9:run_if_false}";
 	}
 snippet package
 	package {
 	  "${1:package_name}":
 	    ensure => ${2:installed};
 	}
+snippet service
+	service {
+	  "${1:name}":
+	    ensure  => ${2:running},
+	    require => Package["${3:name}"];
+	}
+snippet user
+	user {
+	  "${1:login}":
+	    ensure  => ${2:present},
+	    uid     => "${3:1001}",
+	    git     => "${4:admin}",
+	    shell   => "${5:/bin/zsh}",
+	    home    => "/home/${6:login}",
+	    managehome => true;
+	}
 snippet cron
 	cron {
 	  "${1:name}":
 	    command => "${2:command}",
-	    hour    => ${3:hour},
-	    minute  => ${4:minute},
-	    day     => ${5:day};
+	    user    => ${3:root},
+	    hour    => ${4:hour},
+	    minute  => ${5:minute},
+	    day     => ${6:day};
 	}
 snippet class
 	# Class:: $1
