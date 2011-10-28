@@ -41,7 +41,7 @@ snippet user
 	    git     => "${4:admin}",
 	    shell   => "${5:/bin/zsh}",
 	    home    => "/home/${6:login}",
-	    managehome => true;
+	    managehome => ${7:true};
 	}
 snippet cron
 	cron {
