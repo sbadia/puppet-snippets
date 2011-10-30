@@ -38,10 +38,11 @@ snippet user
 	  "${1:login}":
 	    ensure  => ${2:present},
 	    uid     => "${3:1001}",
-	    git     => "${4:admin}",
-	    shell   => "${5:/bin/zsh}",
-	    home    => "/home/${6:login}",
-	    managehome => ${7:true};
+	    gid     => "${4:1001}",
+	    groups  => "${5:admin}",
+	    shell   => "${6:/bin/zsh}",
+	    home    => "${7:/home/login}",
+	    managehome => ${8:true};
 	}
 snippet cron
 	cron {
