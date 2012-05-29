@@ -77,3 +77,29 @@ snippet #head
 	# Date:: `system("ruby -e 'puts Time.now'")`
 	#
 	${3}
+snippet apt
+	include "apt::allowunauthenticated"
+
+	apt::source {
+	  "${1:source}":
+	    source => "puppet:///modules/${2:module}",
+	    unauth => true;
+	}
+snippet case
+	case ${1:$lsbdistcodename} {
+	  ${2:lenny,squeeze}: {
+	    ${3:#Code...}
+	  }
+	  default: {
+	    err "${operatingsystem} not supported yet"
+	  }
+	} # case
+snippet File
+	File["${1:file}"] { source => "puppet:///modules/${2:source}" }
+snippet line
+	custom::line {
+	  "${1:name}":
+	    file => "${2:file}",
+	    line => "${3:line}",
+	    require => Pacakage["${4:pkg}"];
+	}
