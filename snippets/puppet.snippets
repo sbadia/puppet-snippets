@@ -1,53 +1,53 @@
 # vim: nofoldenable foldmethod=manual
 snippet file
 	file {
-	  "${1:filename}":
-	    source  => "puppet:///modules/${2:source}",
+	  '${1:filename}':
+	    source  => 'puppet:///modules/${2:source}',
 	    ensure  => ${3:file},
 	    owner   => ${4:root},
 	    group   => ${5:root},
 	    mode    => ${6:0755},
-	    notify  => Service["${7:name}"],
-	    require => Package["${8:name}"];
+	    notify  => Service['${7:name}'],
+	    require => Package['${8:name}'];
 	}
 snippet exec
 	exec {
-	  "${1:name}":
-	    command       => "${2:command}",
-	    cwd		  => "${3:launch-path}",
+	  '${1:name}':
+	    command       => '${2:command}',
+	    cwd		  => '${3:launch-path}',
 	    user	  => root,
-	    creates	  => "${4:bin}",
-	    require	  => [Package["${5:pkg}"],File["${6:file}"]],
-	    refreshonly   => "${7:true}",
-	    onlyif        => "${8:run_if_true}",
-	    unless        => "${9:run_if_false}";
+	    creates	  => '${4:bin}',
+	    require	  => [Package['${5:pkg}'],File['${6:file}']],
+	    refreshonly   => '${7:true}',
+	    onlyif        => '${8:run_if_true}',
+	    unless        => '${9:run_if_false}';
 	}
 snippet package
 	package {
-	  "${1:package_name}":
+	  '${1:package_name}':
 	    ensure => ${2:installed};
 	}
 snippet service
 	service {
-	  "${1:name}":
+	  '${1:name}':
 	    ensure  => ${2:running},
-	    require => Package["${3:name}"];
+	    require => Package['${3:name}'];
 	}
 snippet user
 	user {
-	  "${1:login}":
+	  '${1:login}':
 	    ensure  => ${2:present},
-	    uid     => "${3:1001}",
-	    gid     => "${4:1001}",
-	    groups  => "${5:admin}",
-	    shell   => "${6:/bin/zsh}",
-	    home    => "${7:/home/login}",
+	    uid     => '${3:1001}',
+	    gid     => '${4:1001}',
+	    groups  => '${5:admin}',
+	    shell   => '${6:/bin/zsh}',
+	    home    => '${7:/home/login}',
 	    managehome => ${8:true};
 	}
 snippet cron
 	cron {
-	  "${1:name}":
-	    command => "${2:command}",
+	  '${1:name}':
+	    command => '${2:command}',
 	    user    => ${3:root},
 	    hour    => ${4:hour},
 	    minute  => ${5:minute},
@@ -68,7 +68,7 @@ snippet def
 	  ${3:#code}
 	} # Define: $1
 snippet inc
-	include "${1}"
+	include '${1}'
 snippet #head
 	# Module:: ${1:modulename}
 	# Manifest:: ${2:init.pp}
@@ -79,28 +79,28 @@ snippet #head
 	#
 	${3}
 snippet apt
-	include "apt::allowunauthenticated"
+	include 'apt::allowunauthenticated'
 
 	apt::source {
-	  "${1:source}":
-	    source => "puppet:///modules/${2:module}",
+	  '${1:source}':
+	    source => 'puppet:///modules/${2:module}',
 	    unauth => true;
 	}
 snippet case
-	case ${1:$lsbdistcodename} {
-	  ${2:lenny,squeeze}: {
+	case ${1:$::operatingsystem} {
+	  ${2:debian,ubuntu}: {
 	    ${3:#Code...}
 	  }
 	  default: {
-	    err "${operatingsystem} not supported yet"
+	    err '${operatingsystem} not supported yet'
 	  }
-	} # case
+	} # Case:: $1
 snippet File
-	File["${1:file}"] { source => "puppet:///modules/${2:source}" }
+	File['${1:file}'] { source => 'puppet:///modules/${2:source}' }
 snippet line
 	custom::line {
-	  "${1:name}":
-	    file => "${2:file}",
-	    line => "${3:line}",
-	    require => Pacakage["${4:pkg}"];
+	  '${1:name}':
+	    file => '${2:file}',
+	    line => '${3:line}',
+	    require => Pacakage['${4:pkg}'];
 	}
