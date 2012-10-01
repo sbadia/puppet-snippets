@@ -2,25 +2,25 @@
 snippet file
 	file {
 	  '${1:filename}':
-	    source  => 'puppet:///modules/${2:source}',
 	    ensure  => ${3:file},
+	    source  => 'puppet:///modules/${2:source}',
 	    owner   => ${4:root},
 	    group   => ${5:root},
-	    mode    => ${6:0755},
+	    mode    => '${6:0755}',
 	    notify  => Service['${7:name}'],
 	    require => Package['${8:name}'];
 	}
 snippet exec
 	exec {
 	  '${1:name}':
-	    command       => '${2:command}',
-	    cwd		  => '${3:launch-path}',
-	    user	  => root,
-	    creates	  => '${4:bin}',
-	    require	  => [Package['${5:pkg}'],File['${6:file}']],
-	    refreshonly   => '${7:true}',
-	    onlyif        => '${8:run_if_true}',
-	    unless        => '${9:run_if_false}';
+	    command	=> '${2:command}',
+	    cwd		=> '${3:launch-path}',
+	    user	=> root,
+	    creates	=> '${4:bin}',
+	    require	=> [Package['${5:pkg}'],File['${6:file}']],
+	    refreshonly	=> ${7:true},
+	    onlyif	=> '${8:run_if_true}',
+	    unless	=> '${9:run_if_false}';
 	}
 snippet package
 	package {
@@ -36,13 +36,13 @@ snippet service
 snippet user
 	user {
 	  '${1:login}':
-	    ensure  => ${2:present},
-	    uid     => '${3:1001}',
-	    gid     => '${4:1001}',
-	    groups  => '${5:admin}',
-	    shell   => '${6:/bin/zsh}',
-	    home    => '${7:/home/login}',
-	    managehome => ${8:true};
+	    ensure	=> ${2:present},
+	    uid		=> '${3:1001}',
+	    gid		=> '${4:1001}',
+	    groups	=> '${5:admin}',
+	    shell	=> '${6:/bin/zsh}',
+	    home	=> '${7:/home/login}',
+	    managehome	=> ${8:true};
 	}
 snippet cron
 	cron {
@@ -100,7 +100,7 @@ snippet File
 snippet line
 	custom::line {
 	  '${1:name}':
-	    file => '${2:file}',
-	    line => '${3:line}',
+	    file    => '${2:file}',
+	    line    => '${3:line}',
 	    require => Pacakage['${4:pkg}'];
 	}
