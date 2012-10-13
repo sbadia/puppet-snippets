@@ -2,8 +2,8 @@
 snippet file
 	file {
 	  '${1:filename}':
-	    ensure  => ${3:file},
-	    source  => 'puppet:///modules/${2:source}',
+	    ensure  => ${2:file},
+	    source  => 'puppet:///modules/${3:source}',
 	    owner   => ${4:root},
 	    group   => ${5:root},
 	    mode    => '${6:0755}',
@@ -92,7 +92,7 @@ snippet case
 	    ${3:#Code...}
 	  }
 	  default: {
-	    err '${operatingsystem} not supported yet'
+	    err "${::operatingsystem} not supported yet"
 	  }
 	} # Case:: $1
 snippet File
