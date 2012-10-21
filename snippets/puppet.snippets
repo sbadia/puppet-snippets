@@ -1,5 +1,5 @@
 # vim: nofoldenable foldmethod=manual
-snippet file
+snippet filel
 	file {
 	  '${1:filename}':
 	    ensure  => ${2:file},
@@ -60,15 +60,13 @@ snippet class
 	class ${1:classname} {
 	  ${2:#code...}
 	} # Class:: $1
-snippet def
+snippet defl
 	# Define:: $1
 	# Args:: $2
 	#
 	define ${1:defname}(${2:args}) {
 	  ${3:#code}
 	} # Define: $1
-snippet inc
-	include '${1}'
 snippet #head
 	# Module:: ${1:modulename}
 	# Manifest:: ${2:init.pp}
@@ -86,7 +84,7 @@ snippet apt
 	    source => 'puppet:///modules/${2:module}',
 	    unauth => true;
 	}
-snippet case
+snippet casel
 	case ${1:$::operatingsystem} {
 	  ${2:debian,ubuntu}: {
 	    ${3:#Code...}

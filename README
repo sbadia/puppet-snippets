@@ -1,2 +1,2 @@
-To install these files, copy them into ~/.vim, or the relevant
-system-wide location.
+cd ~/.vim
+git submodule add https://github.com/sbadia/puppet-vim.git bundle/puppet-vim
