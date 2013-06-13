@@ -57,6 +57,14 @@ snippet mount
 	    fstype  => '${4:fstype}',
 	    options => '${5:opts}';
 	}
+snippet host
+	host {
+	  '${1:hostname}':
+	    ensure	  => ${2:present},
+	    comment	  => '${3:comment}',
+	    host_aliases  => '${4:alias}',
+	    ip		  => '${4:ipaddr}';
+	}
 snippet service
 	service {
 	  '${1:name}':
