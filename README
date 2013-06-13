@@ -1,2 +1,0 @@
-cd ~/.vim
-git submodule add https://github.com/sbadia/puppet-vim.git bundle/puppet-vim
