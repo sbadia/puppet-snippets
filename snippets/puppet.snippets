@@ -18,15 +18,15 @@ snippet file
 snippet exec
 	exec {
 	  '${1:name}':
-	    command	=> '${2:command}',
-	    cwd		=> '${3:launch-path}',
-	    user	=> root,
-	    creates	=> '${4:bin}',
-	    require	=> [Package['${5:pkg}'],File['${6:file}']],
-	    refreshonly	=> ${7:true},
-	    onlyif	=> '${8:run_if_true}',
-	    unless	=> '${9:run_if_false}',
-	    logoutput	=> ${10:on_failure};
+	    command	=>  '${2:command}',
+	    cwd		=>  '${3:launch-path}',
+	    user	=>  root,
+	    creates	=>  '${4:bin}',
+	    require	=>  [Package['${5:pkg}'],File['${6:file}']],
+	    refreshonly	=>  ${7:true},
+	    onlyif	=>  '${8:run_if_true}',
+	    unless	=>  '${9:run_if_false}',
+	    logoutput	=>  ${10:on_failure};
 	}
 snippet package
 	package {
@@ -124,29 +124,6 @@ snippet cron
 	    minute  => ${6:minute},
 	    weekday => ${7:weekday};
 	}
-snippet class
-	# Class:: $1
-	#
-	#
-	class ${1:classname} {
-	  ${2:#code...}
-	} # Class:: $1
-snippet defs
-	# Define:: $1
-	# Args:: $2
-	#
-	define ${1:defname}(${2:args}) {
-	  ${3:#code}
-	} # Define: $1
-snippet #head
-	# Module:: ${1:modulename}
-	# Manifest:: ${2:init.pp}
-	#
-	# Author:: `system("git config user.name")` (<`system("git config user.email")`>)
-	# Date:: `system("ruby -e 'puts Time.now'")`
-	# Maintainer:: `system("git config user.name")` (<`system("git config user.email")`>)
-	#
-	${3}
 snippet apt
 	include 'apt::allowunauthenticated'
 
@@ -184,6 +161,29 @@ snippet if
 	if $::${1:variable} {
 	  ${2}
 	} # if $1
+snippet class
+	# Class:: $1
+	#
+	#
+	class ${1:classname} {
+	  ${2:#code...}
+	} # Class:: $1
+snippet def
+	# Define:: $1
+	# Args:: $2
+	#
+	define ${1:defname}(${2:args}) {
+	  ${3:#code}
+	} # Define: $1
+snippet #head
+	# Module:: ${1:modulename}
+	# Manifest:: ${2:init.pp}
+	#
+	# Author:: `system("git config user.name")` (<`system("git config user.email")`>)
+	# Date:: `system("ruby -e 'puts Time.now'")`
+	# Maintainer:: `system("git config user.name")` (<`system("git config user.email")`>)
+	#
+	${3}
 # Functions
 snippet alert
 	alert("${1:message}")${2}
