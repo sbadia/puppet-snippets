@@ -2,7 +2,9 @@
 #
 # add 's' for avoid conflicts of redefined types 'rodjek/vim-puppet'
 # http://docs.puppetlabs.com/references/latest/type.html
-snippet files
+
+# Puppet DSL
+snippet file
 	file {
 	  '${1:filename}':
 	    ensure  => ${2:file},
@@ -145,15 +147,6 @@ snippet apt
 	    source => 'puppet:///modules/${2:module}',
 	    unauth => true;
 	}
-snippet cases
-	case ${1:$::operatingsystem} {
-	  ${2:debian,ubuntu}: {
-	    ${3:#Code...}
-	  }
-	  default: {
-	    err "${::operatingsystem} not supported yet"
-	  }
-	} # Case:: $1
 snippet File
 	File['${1:file}'] { source => 'puppet:///modules/${2:source}' }
 snippet line
@@ -163,3 +156,60 @@ snippet line
 	    line    => '${3:line}',
 	    require => Pacakage['${4:pkg}'];
 	}
+# Language constructs
+snippet case
+	case ${1:$::operatingsystem} {
+	  ${2:debian,ubuntu}: {
+	    ${3:#Code...}
+	  }
+	  default: {
+	    err "${::operatingsystem} not supported yet"
+	  }
+	} # Case $1
+snippet ife
+	if $::${1:variable} {
+	  ${2}
+	} else {
+	  $[3]
+	} # if $1
+snippet if
+	if $::${1:variable} {
+	  ${2}
+	} # if $1
+# Functions
+snippet alert
+	alert("${1:message}")${2}
+snippet crit
+	crit("${1:message}")${2}
+snippet debug
+	debug("${1:message}")${2}
+snippet defined
+	defined(${1:Resource}["${2:name}"])${3}
+snippet emerg
+	emerg("${1:message}")${2}
+snippet extlookup Simple extlookup
+	extlookup("${1:variable}")${2}
+snippet extlookup Extlookup with defaults
+	extlookup("${1:variable}", "${2:default}")${3}
+snippet extlookup Extlookup with defaults and custom data file
+	extlookup("${1:variable}", "${2:default}", "${3:data source}")${4}
+snippet fail
+	fail("${1:message}")${2}
+snippet info
+	info("${1:message}")${2}
+snippet inline_template
+	inline_template("<%= ${1} %>")${2}
+snippet notice
+	notice("${1:message}")${2}
+snippet realize
+	realize(${1:Resource}[${2:name}])${3}
+snippet regsubst
+	regsubst(${1:hay stack}, ${2:needle}, "${3:replacement}")${4}
+snippet inc
+	include ${1:classname}${2}
+snippet split
+	split(${1:hay stack}, "${2:patten}")${3}
+snippet versioncmp
+	versioncmp("${1:version}", "${2:version}")${3}
+snippet warning
+	warning("${1:message}")${2}
