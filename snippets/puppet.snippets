@@ -221,3 +221,39 @@ snippet versioncmp
 	versioncmp("${1:version}", "${2:version}")${3}
 snippet warning
 	warning("${1:message}")${2}
+
+snippet #doc
+	# == Class: ${1:example_class}
+	#
+	# Install and configure $1 using puppet.
+	#
+	# === Parameters
+	#
+	# [*${2:param}*]
+	#   Explanation of what this parameter affects and what it defaults to.
+	#   e.g. "Specify one or more upstream ntp servers as an array."
+	#
+	# === Variables
+	#
+	# [*${3:variable}*]
+	#   Explanation of how this variable affects the funtion of this class and if it
+	#   has a default. e.g. "The parameter enc_ntp_servers must be set by the
+	#   External Node Classifier as a comma separated list of hostnames." (Note,
+	#   global variables should not be used in preference to class parameters  as of
+	#   Puppet 2.6.)
+	#
+	# === Examples
+	#
+	#  class { 'example_class':
+	#    ntp_servers => [ 'pool.ntp.org', 'ntp.local.company.com' ]
+	#  }
+	#
+	# === Authors
+	#
+	# `system('git config user.name')` <`system("git config user.email")`>
+	#
+	# === Copyright
+	#
+	# Copyleft `system('date +%Y')` `system('git config user.name')`.
+	# See LICENSE file.
+	#
