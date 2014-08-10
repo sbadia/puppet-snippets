@@ -111,6 +111,17 @@ snippet sapt
 	    source => 'puppet:///modules/${2:module}',
 	    unauth => true;
 	}
+snippet sfile
+	file { '${1:filename}' :
+		ensure  => ${2:present},
+		owner   => '${3:root}',
+		group   => '${4:root}',
+		mode    => '${5:0644}',
+		source  => 'puppet:///modules/${6:module}/${7:source}',
+		content => template('/etc/puppet/templates/${8:template}'),
+		alias   => '${9:alias}',
+		require => [ Package['${10:package}'], File['${11:file}'], ],
+	}
 snippet sFile
 	File['${1:file}'] { source => 'puppet:///modules/${2:source}' }
 snippet sline
