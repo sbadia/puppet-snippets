@@ -4,18 +4,7 @@
 # http://docs.puppetlabs.com/references/latest/type.html
 
 # Puppet DSL
-snippet file
-	file {
-	  '${1:filename}':
-	    ensure  => ${2:file},
-	    source  => 'puppet:///modules/${3:source}',
-	    owner   => ${4:root},
-	    group   => ${5:root},
-	    mode    => '${6:0755}',
-	    notify  => Service['${7:name}'],
-	    require => Package['${8:name}'];
-	}
-snippet exec
+snippet sexec
 	exec {
 	  '${1:name}':
 	    command	=>  '${2:command}',
@@ -28,18 +17,18 @@ snippet exec
 	    unless	=>  '${9:run_if_false}',
 	    logoutput	=>  ${10:on_failure};
 	}
-snippet package
+snippet spackage
 	package {
 	  '${1:package_name}':
 	    ensure => ${2:installed};
 	}
-snippet mailalias
+snippet smailalias
 	mailalias {
 	  '${1:alianame}':
 	    ensure    => ${2:present},
 	    recipient => '${3:recipient}';
 	}
-snippet maillist
+snippet smaillist
 	maillist {
 	  '${1:listname}':
 	    ensure	=> ${2:present},
@@ -49,7 +38,7 @@ snippet maillist
 	    password	=> '${6:admin_pwd}',
 	    webserver	=> '${7:web_hostname}';
 	}
-snippet mount
+snippet smount
 	mount {
 	  '${1:name}':
 	    ensure  => ${2:present},
@@ -57,7 +46,7 @@ snippet mount
 	    fstype  => '${4:fstype}',
 	    options => '${5:opts}';
 	}
-snippet host
+snippet shost
 	host {
 	  '${1:hostname}':
 	    ensure	  => ${2:present},
@@ -65,7 +54,7 @@ snippet host
 	    host_aliases  => '${4:alias}',
 	    ip		  => '${4:ipaddr}';
 	}
-snippet service
+snippet sservice
 	service {
 	  '${1:name}':
 	    ensure	=> ${2:running},
@@ -75,7 +64,7 @@ snippet service
 	    pattern	=> ${6:pattern},
 	    require	=> Package['${7:name}'];
 	}
-snippet user
+snippet suser
 	user {
 	  '${1:login}':
 	    ensure	=> ${2:present},
@@ -88,7 +77,7 @@ snippet user
 	    comment	=> '${9:comment}',
 	    system	=> ${10:false};
 	}
-snippet ssh_authorized_key
+snippet sssh_authorized_key
 	ssh_authorized_key {
 	  '${1:name}':
 	    ensure  => ${2:present},
@@ -97,7 +86,7 @@ snippet ssh_authorized_key
 	    type    => '${5:type}',
 	    user    => '${6:user}';
 	}
-snippet sshkey
+snippet ssshkey
 	sshkey {
 	  '${1:name}':
 	    ensure	  => ${2:present},
@@ -106,7 +95,7 @@ snippet sshkey
 	    options	  => '${5:keys_opts}',
 	    type	  => '${6:type}';
 	}
-snippet tidy
+snippet stidy
 	tidy {
 	  '${1:path}':
 	    age => '${2:1w}',
@@ -114,17 +103,7 @@ snippet tidy
 	    recurse => ${4:1},
 	    rmdirs  => ${5:true};
 	}
-snippet cron
-	cron {
-	  '${1:name}':
-	    ensure  => ${2:present},
-	    command => '${3:command}',
-	    user    => ${4:root},
-	    hour    => ${5:hour},
-	    minute  => ${6:minute},
-	    weekday => ${7:weekday};
-	}
-snippet apt
+snippet sapt
 	include 'apt::allowunauthenticated'
 
 	apt::source {
@@ -132,9 +111,9 @@ snippet apt
 	    source => 'puppet:///modules/${2:module}',
 	    unauth => true;
 	}
-snippet File
+snippet sFile
 	File['${1:file}'] { source => 'puppet:///modules/${2:source}' }
-snippet line
+snippet sline
 	custom::line {
 	  '${1:name}':
 	    file    => '${2:file}',
@@ -142,7 +121,7 @@ snippet line
 	    require => Pacakage['${4:pkg}'];
 	}
 # Language constructs
-snippet case
+snippet scase
 	case ${1:$::operatingsystem} {
 	  ${2:debian,ubuntu}: {
 	    ${3:#Code...}
@@ -151,24 +130,14 @@ snippet case
 	    err "${$1} not supported yet"
 	  }
 	} # Case $1
-snippet ife
-	if $::${1:variable} {
-	  ${2}
-	} else {
-	  $[3]
-	} # if $1
-snippet if
-	if $::${1:variable} {
-	  ${2}
-	} # if $1
-snippet class
+snippet sclass
 	# Class:: $1
 	#
 	#
 	class ${1:classname} {
 	  ${2:#code...}
 	} # Class:: $1
-snippet def
+snippet sdef
 	# Define:: $1
 	# Args:: $2
 	#
@@ -184,76 +153,3 @@ snippet #head
 	# Maintainer:: `system("git config user.name")` (<`system("git config user.email")`>)
 	#
 	${3}
-# Functions
-snippet alert
-	alert("${1:message}")${2}
-snippet crit
-	crit("${1:message}")${2}
-snippet debug
-	debug("${1:message}")${2}
-snippet defined
-	defined(${1:Resource}["${2:name}"])${3}
-snippet emerg
-	emerg("${1:message}")${2}
-snippet extlookup Simple extlookup
-	extlookup("${1:variable}")${2}
-snippet extlookup Extlookup with defaults
-	extlookup("${1:variable}", "${2:default}")${3}
-snippet extlookup Extlookup with defaults and custom data file
-	extlookup("${1:variable}", "${2:default}", "${3:data source}")${4}
-snippet fail
-	fail("${1:message}")${2}
-snippet info
-	info("${1:message}")${2}
-snippet inline_template
-	inline_template("<%= ${1} %>")${2}
-snippet notice
-	notice("${1:message}")${2}
-snippet realize
-	realize(${1:Resource}[${2:name}])${3}
-snippet regsubst
-	regsubst(${1:hay stack}, ${2:needle}, "${3:replacement}")${4}
-snippet inc
-	include ${1:classname}${2}
-snippet split
-	split(${1:hay stack}, "${2:patten}")${3}
-snippet versioncmp
-	versioncmp("${1:version}", "${2:version}")${3}
-snippet warning
-	warning("${1:message}")${2}
-
-snippet #doc
-	# == Class: ${1:example_class}
-	#
-	# Install and configure $1 using puppet.
-	#
-	# === Parameters
-	#
-	# [*${2:param}*]
-	#   Explanation of what this parameter affects and what it defaults to.
-	#   e.g. "Specify one or more upstream ntp servers as an array."
-	#
-	# === Variables
-	#
-	# [*${3:variable}*]
-	#   Explanation of how this variable affects the funtion of this class and if it
-	#   has a default. e.g. "The parameter enc_ntp_servers must be set by the
-	#   External Node Classifier as a comma separated list of hostnames." (Note,
-	#   global variables should not be used in preference to class parameters  as of
-	#   Puppet 2.6.)
-	#
-	# === Examples
-	#
-	#  class { 'example_class':
-	#    ntp_servers => [ 'pool.ntp.org', 'ntp.local.company.com' ]
-	#  }
-	#
-	# === Authors
-	#
-	# `system('git config user.name')` <`system("git config user.email")`>
-	#
-	# === Copyright
-	#
-	# Copyleft `system('date +%Y')` `system('git config user.name')`.
-	# See LICENSE file.
-	#
